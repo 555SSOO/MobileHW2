@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 
 
 import com.example.a01.mobilehw2.R;
@@ -77,17 +78,11 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerView recycler = findViewById(R.id.rv_main_list);
 
-//        SelectorView;
+        //recycler.getLayoutParams().height = recycler.getMeasuredHeight()/2;
 
-        View v = LayoutInflater.from(recycler.getContext()).inflate(R.layout.grid_item, recycler, false);
-        GridLayoutManager.LayoutParams lp = (GridLayoutManager.LayoutParams) v.getLayoutParams();
-        lp.height = recycler.getMeasuredHeight() / 4;
-        v.setLayoutParams(lp);
 
 
         GridLayoutManager manager = new GridLayoutManager(this, 2);
-
-        //recycler.getLayoutParams().height = 60;
 
         recycler.setLayoutManager(manager);
 
