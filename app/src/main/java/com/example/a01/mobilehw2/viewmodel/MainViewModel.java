@@ -41,6 +41,7 @@ public class MainViewModel extends ViewModel {
     }
 
 
+    // Filter a copy of the list and post it
     @SuppressLint("NewApi")
     public void filterContacts(String filter_query) {
         List<Contact> filtered_list = new ArrayList<>(contacts);

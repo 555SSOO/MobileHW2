@@ -3,7 +3,6 @@ package com.example.a01.mobilehw2.activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -17,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -66,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        // Call the filterContacts on key press
         mFilterEt = findViewById(R.id.et_filter);
         mFilterEt.addTextChangedListener(new TextWatcher() {
             @Override
@@ -79,10 +78,6 @@ public class MainActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
             }
         });
-
-
-
-
 
 
         RecyclerView recycler = findViewById(R.id.rv_main_list);
