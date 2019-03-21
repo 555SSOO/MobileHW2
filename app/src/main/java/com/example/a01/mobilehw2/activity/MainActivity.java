@@ -1,13 +1,11 @@
 package com.example.a01.mobilehw2.activity;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
-
 
 import com.example.a01.mobilehw2.R;
 import com.example.a01.mobilehw2.adapter.ContactAdapter;
@@ -22,18 +20,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private EditText mInputEt;
-
+    private EditText mFilterEt;
     private MainViewModel mViewModel;
-
     private List<Contact> mContacts;
-
     private ContactAdapter mAdapter;
 
     @Override
@@ -52,13 +47,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void initViewModels() {
         mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        mViewModel.getStudents().observe(this,
-                new Observer<List<Contact>>() {
-                    @Override
-                    public void onChanged(List<Contact> contacts) {
-                        mContacts = new ArrayList<>(contacts);
-                        mAdapter.setData(mContacts);
-                    }
+        mViewModel.getContacts().observe(this,
+                contacts -> {
+                    mContacts = new ArrayList<>(contacts);
+                    mAdapter.setData(mContacts);
                 });
     }
 
@@ -67,25 +59,35 @@ public class MainActivity extends AppCompatActivity {
         Button addBtn = findViewById(R.id.btn_main_add);
 
         // Dodajemo studenta na poziciju 2
-        addBtn.setOnClickListener(new View.OnClickListener() {
+        addBtn.setOnClickListener(v -> {
+            String s = mInputEt.getText().toString();
+            mViewModel.addContact(new Contact(Util.generateId(), s));
+            mViewModel.setContacts(mContacts);
+        });
+
+
+        mFilterEt = findViewById(R.id.et_filter);
+        mFilterEt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                String s = mInputEt.getText().toString();
-                mContacts.add(2, new Contact(Util.generateId(), s));
-                mViewModel.setStudents(mContacts);
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                mViewModel.filterContacts(charSequence.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
             }
         });
 
+
+
+
+
+
         RecyclerView recycler = findViewById(R.id.rv_main_list);
-
-        //recycler.getLayoutParams().height = recycler.getMeasuredHeight()/2;
-
-
-
         GridLayoutManager manager = new GridLayoutManager(this, 2);
-
         recycler.setLayoutManager(manager);
-
         mAdapter = new ContactAdapter();
         recycler.setAdapter(mAdapter);
     }

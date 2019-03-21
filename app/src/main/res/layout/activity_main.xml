@@ -10,7 +10,8 @@
         android:id="@+id/rv_main_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/et_main_input"/>
+        android:layout_above="@id/et_main_input"
+        android:layout_below="@id/et_filter"/>
 
     <EditText
         android:id="@+id/et_main_input"
@@ -18,6 +19,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_toStartOf="@id/btn_main_add" />
+
+    <EditText
+        android:id="@+id/et_filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
 
     <Button
         android:id="@+id/btn_main_add"

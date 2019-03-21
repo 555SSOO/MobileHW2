@@ -39,7 +39,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactH
     public void onBindViewHolder(@NonNull ContactHolder holder, int position) {
         Contact contact = mDataSet.get(position);
         Picasso.get().load(contact.getImageUrl()).into(holder.image);
-        holder.text.setText(contact.getName());
+        holder.text.setText(String.format("%s\n%s\n%s", contact.getName(), contact.getEmail(), contact.getPhone_number()));
     }
 
     @Override
